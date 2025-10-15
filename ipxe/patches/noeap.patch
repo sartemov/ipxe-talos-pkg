@@ -1,0 +1,27 @@
+diff --git a/src/config/general.h b/src/config/general.h
+index 683c02ffb..e70ebf645 100644
+--- a/src/config/general.h
++++ b/src/config/general.h
+@@ -39,7 +39,12 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
+ #undef	NET_PROTO_FCOE		/* Fibre Channel over Ethernet protocol */
+ #define	NET_PROTO_STP		/* Spanning Tree protocol */
+ #define	NET_PROTO_LACP		/* Link Aggregation control protocol */
+-#define	NET_PROTO_EAPOL		/* EAP over LAN protocol */
++/*
++ * EAPOL does not work properly with Mellanox NIC:
++ * https://github.com/ipxe/ipxe/issues/1091#issuecomment-1946152615
++ *
++ */
++#undef  NET_PROTO_EAPOL         /* EAP over LAN protocol */
+ //#define NET_PROTO_LLDP	/* Link Layer Discovery protocol */
+ 
+ /*
+@@ -56,7 +61,7 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
+ 
+ #define	DOWNLOAD_PROTO_TFTP	/* Trivial File Transfer Protocol */
+ #define	DOWNLOAD_PROTO_HTTP	/* Hypertext Transfer Protocol */
+-#undef	DOWNLOAD_PROTO_HTTPS	/* Secure Hypertext Transfer Protocol */
++#define	DOWNLOAD_PROTO_HTTPS	/* Secure Hypertext Transfer Protocol */
+ #undef	DOWNLOAD_PROTO_FTP	/* File Transfer Protocol */
+ #undef	DOWNLOAD_PROTO_SLAM	/* Scalable Local Area Multicast */
+ #undef	DOWNLOAD_PROTO_NFS	/* Network File System Protocol */
