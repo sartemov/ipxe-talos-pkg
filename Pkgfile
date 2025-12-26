@@ -8,9 +8,9 @@ vars:
   TOOLS_REV: v1.12.0-alpha.0-15-ge62d613
 
   # renovate: datasource=git-refs versioning=git depName=https://github.com/ipxe/ipxe.git
-  ipxe_ref: ce30ba14fcf1a50e5e8cd7461b098023d08cab42
-  ipxe_sha256: 12fdf86a6f2b94ad2a83a4a2a35b509c951d8379a4af591dfc88d0931e299664
-  ipxe_sha512: f4bcaff60ec814dea3801a3a1ccdcd2244f83bdfce37138ece64d160c6a0d0640721e087410132b5e486d6c8821ce97e955c48aeb02a693db01f09cd72e77e77
+  ipxe_ref: 3832147944209ece35557234102548413ef1b460
+  ipxe_sha256: 5d62b489251712939b895da83b3b03d4eca0cfac4b396936f836e7aea238e3ab
+  ipxe_sha512: 4ecbc90add94040f97d007a741c2fc5baddf97524b21bbd1ee4f5237a54cce249a876ce8a0ae243eb429d80614b73c282f7ebdd5da2cbda220d7aa3a38245c21
 
 labels:
   org.opencontainers.image.source: https://github.com/sartemov/ipxe-talos-pkg
