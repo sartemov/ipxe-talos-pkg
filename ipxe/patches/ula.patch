@@ -1,0 +1,55 @@
+From e4c78d2d8071d8eabe75ec8cf2ee44837f971bdd Mon Sep 17 00:00:00 2001
+From: Sergey Artemov <se.artemov@tinkoff.ru>
+Date: Fri, 26 Dec 2025 10:16:33 +0300
+Subject: [PATCH] eapol/ula hack
+
+---
+ src/config/general.h | 6 +++---
+ src/net/ipv6.c       | 6 +++++-
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/config/general.h b/src/config/general.h
+index 683c02ffb..e177517f9 100644
+--- a/src/config/general.h
++++ b/src/config/general.h
+@@ -39,8 +39,8 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
+ #undef	NET_PROTO_FCOE		/* Fibre Channel over Ethernet protocol */
+ #define	NET_PROTO_STP		/* Spanning Tree protocol */
+ #define	NET_PROTO_LACP		/* Link Aggregation control protocol */
+-#define	NET_PROTO_EAPOL		/* EAP over LAN protocol */
+-//#define NET_PROTO_LLDP	/* Link Layer Discovery protocol */
++#undef	NET_PROTO_EAPOL		/* EAP over LAN protocol */
++#define NET_PROTO_LLDP	/* Link Layer Discovery protocol */
+ 
+ /*
+  * PXE support
+@@ -163,7 +163,7 @@ FILE_LICENCE ( GPL2_OR_LATER_OR_UBDL );
+ //#define PCI_CMD		/* PCI commands */
+ //#define PARAM_CMD		/* Request parameter commands */
+ //#define NEIGHBOUR_CMD		/* Neighbour management commands */
+-//#define PING_CMD		/* Ping command */
++#define PING_CMD		/* Ping command */
+ //#define CONSOLE_CMD		/* Console command */
+ //#define IPSTAT_CMD		/* IP statistics commands */
+ //#define PROFSTAT_CMD		/* Profiling commands */
+diff --git a/src/net/ipv6.c b/src/net/ipv6.c
+index 8ee0804d3..1324eecc7 100644
+--- a/src/net/ipv6.c
++++ b/src/net/ipv6.c
+@@ -106,8 +106,12 @@ static unsigned int ipv6_scope ( const struct in6_addr *addr ) {
+ 	 * simply choose an arbitrary scope between link-local and
+ 	 * global.
+ 	 */
++  /* Ugly hack goes here. For ULA<->GUA connectivity
++	   without GUI address on interface we need to
++		 have same scope.
++	*/
+ 	if ( IN6_IS_ADDR_ULA ( addr ) )
+-		return IPV6_SCOPE_ORGANISATION_LOCAL;
++		return IPV6_SCOPE_GLOBAL;
+ 
+ 	/* All other addresses are assumed to be global */
+ 	return IPV6_SCOPE_GLOBAL;
+-- 
+2.25.1
+
